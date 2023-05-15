@@ -100,6 +100,8 @@ public void LabelCenter() {
                            // new ViewMain();
                             new MenuMain();
                         }
+                        else {
+                            JOptionPane.showMessageDialog(rootPane, "Tài khoản hoặc mật khẩu không đúng");}
 
                     }catch (Exception ex){
                         ex.printStackTrace();
