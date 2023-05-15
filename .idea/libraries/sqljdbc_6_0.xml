@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="sqljdbc_6.0">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://D:/EDGE download/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/samples/adaptive" />
+      <root url="file://D:/EDGE download/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/samples/alwaysencrypted" />
+      <root url="file://D:/EDGE download/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/samples/connections" />
+      <root url="file://D:/EDGE download/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/samples/datatypes" />
+      <root url="file://D:/EDGE download/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/samples/resultsets" />
+      <root url="file://D:/EDGE download/Microsoft JDBC Driver 6.0 for SQL Server/sqljdbc_6.0/enu/samples/sparse" />
+    </SOURCES>
+  </library>
+</component>
