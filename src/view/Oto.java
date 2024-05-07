@@ -308,59 +308,37 @@ public class Oto extends JFrame {
             }
 
         });
-//        JButton btKiem = new JButton("Tìm kiếm");
-//        btKiem.setPreferredSize(d);
-//        btKiem.setIcon(new ImageIcon(getClass().getResource("/Images/search.png") ));
-//        btKiem.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                super.keyPressed(e);
-//                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-//                    try {
-//                        vdata.clear();
-//                        vtile.clear();
-//                        Connection conn = Connect.getConnection();
-//                        PreparedStatement insert = conn.prepareStatement("\n" +
-//                                "SELECT * FROM Oto WHERE MaDinhDanh = ?");
-//                        insert.setNString(1, String.valueOf(tfID));
-//                        ResultSet rs = insert.executeQuery();
-//                        ResultSetMetaData rstmeta=rs.getMetaData();
-//                        int num_column =rstmeta.getColumnCount();
-//                        //System.out.println(num_column);
-//                        for (int i=1;i<=num_column;i++)
-//                            vtile.add(rstmeta.getColumnLabel(i));
-//                        while (rs.next()) {
-//                            Vector row = new Vector();
-//                            for (int i = 1; i <=num_column; i++) {
-//                                row.add(rs.getString(i));
-//                            }
-//                            vdata.add(row);
-//                        }
-//                        tableModel.setDataVector(vdata,vtile);
-//                    }
-//                    catch (SQLException | IllegalArgumentException ex)
-//                    {
-//                        JOptionPane.showMessageDialog(rootPane,ex);
-//                    } catch (ClassNotFoundException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                    tfID.setText("");
-//                }
-//            }
-//        });
-
-        // Phần Button(): edited at 12:47AM 16/05/2023
         JButton btKiem = new JButton("Tìm kiếm");
         btKiem.setPreferredSize(d);
         btKiem.setIcon(new ImageIcon(getClass().getResource("/Images/search.png")));
         btKiem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String searchText = tfID.getText();
                 try {
-                    searchTable(searchText);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    vdata.clear();
+                    vtile.clear();
+                    Connection conn = Connect.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Oto WHERE MaDinhDanh = ?");
+                    stmt.setString(1, tfID.getText()); // Sửa ở đây
+                    ResultSet rs = stmt.executeQuery();
+                    ResultSetMetaData rstmeta = rs.getMetaData();
+                    int num_column = rstmeta.getColumnCount();
+
+                    for (int i = 1; i <= num_column; i++) {
+                        vtile.add(rstmeta.getColumnLabel(i));
+                    }
+
+                    while (rs.next()) {
+                        Vector row = new Vector();
+                        for (int i = 1; i <= num_column; i++) {
+                            row.add(rs.getString(i));
+                        }
+                        vdata.add(row);
+                    }
+
+                    tableModel.setDataVector(vdata, vtile);
+                } catch (SQLException | IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex);
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
