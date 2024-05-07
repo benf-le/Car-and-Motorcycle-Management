@@ -309,46 +309,38 @@ public class Xemay extends JFrame {
         });
         JButton btKiem = new JButton("Tìm kiếm");
         btKiem.setPreferredSize(d);
-        btKiem.setIcon(new ImageIcon(getClass().getResource("/Images/search.png") ));
-        btKiem.addKeyListener(new KeyAdapter() {
+        btKiem.setIcon(new ImageIcon(getClass().getResource("/Images/search.png")));
+        btKiem.addActionListener(new ActionListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
-              /* super.keyTyped(e);
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    try {
-                        vdata.clear();
-                        vtile.clear();
-                        Connection conn = Connect.getConnection();
-                        String sql = ("SELECT TenChuXe,NhanHieu,SoLoai,MauSon,SoMay,SoKhung,BienSo,DungTich,NgayDangKy" +
-                                "FROM Xemay" +
-                                "WHERE MaDinhDanh AND (name LIKE ('%'+?+'%') or title LIKE ('%'+?+'%'))");
-                        String name = btKiem.getText();
-                        String title = .getText();
-                        insert.setNString(1,name);
-                        insert.setString(2,title);
-                        ResultSet rs = insert.executeQuery();
-                        ResultSetMetaData rstmeta=rs.getMetaData();
-                        int num_column =rstmeta.getColumnCount();
-                        //System.out.println(num_column);
-                        for (int i=1;i<=num_column;i++)
-                            vtile.add(rstmeta.getColumnLabel(i));
-                        while (rs.next()) {
-                            Vector row = new Vector();
-                            for (int i = 1; i <=num_column; i++) {
-                                row.add(rs.getString(i));
-                            }
-                            vdata.add(row);
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    vdata.clear();
+                    vtile.clear();
+                    Connection conn = Connect.getConnection();
+                    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Oto WHERE MaDinhDanh = ?");
+                    stmt.setString(1, tfID.getText()); // Sửa ở đây
+                    ResultSet rs = stmt.executeQuery();
+                    ResultSetMetaData rstmeta = rs.getMetaData();
+                    int num_column = rstmeta.getColumnCount();
+
+                    for (int i = 1; i <= num_column; i++) {
+                        vtile.add(rstmeta.getColumnLabel(i));
+                    }
+
+                    while (rs.next()) {
+                        Vector row = new Vector();
+                        for (int i = 1; i <= num_column; i++) {
+                            row.add(rs.getString(i));
                         }
-                        tableModel.setDataVector(vdata,vtile);
+                        vdata.add(row);
                     }
-                    catch (SQLException | IllegalArgumentException ex)
-                    {
-                        JOptionPane.showMessageDialog(rootPane,ex);
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-                    tfID.setText("");
-                }*/
+
+                    tableModel.setDataVector(vdata, vtile);
+                } catch (SQLException | IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(rootPane, ex);
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
 
